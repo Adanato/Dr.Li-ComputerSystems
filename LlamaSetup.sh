@@ -23,7 +23,7 @@ git clone https://github.com/Kitware/CMake.git &
 
 #clone intel pcm tools github
 echo "Cloning intel pcm tools needed for monitoring perplexity"
-git clone https://github.com/intel/pcm.git &
+git clone --recursive https://github.com/opcm/pcm.git &
 
 wait
 
@@ -88,6 +88,21 @@ cd /tdata/CMake
 
 echo "Building Intel PCM"
 cd /tdata/pcm
+
+mkdir build
+
+cd build
+
+cmake ..
+
+cmake --build .
+
 #INTEL VTUNE
-
-
+echo "Installing VTUNE via https://www.intel.com/content/www/us/en/docs/vtune-profiler/installation-guide/2023-0/package-managers.html"
+cd /tdata
+wget https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+sudo apt-key add GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+sudo apt update
+sudo apt install intel-oneapi-vtune
