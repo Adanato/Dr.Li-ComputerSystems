@@ -36,6 +36,8 @@ echo "Moving into Meta Directory"
 cd llama/
 
 echo "Installing Python Pip"
+sudo apt update
+sudo apt upgrade
 sudo apt install python3-pip
 pip install -e .               #install everything
 
@@ -56,7 +58,7 @@ make
 echo "Moving Downloaded Llama Items over into models folder"
 cd ./models
 mv ../../llama/tokenizer_checklist.chk ./
-mv ../../llama/tokenizer_checklist.chk ./
+mv ../../llama/tokenizer.model ./
 mv ../../llama/llama-2-7b ./
 
 echo "Installing Python Dependencies in Llama.cpp root directory"
@@ -106,3 +108,6 @@ rm GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
 echo "deb https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
 sudo apt update
 sudo apt install intel-oneapi-vtune
+
+echo "Setting up environment variables"
+source /opt/intel/oneapi/setvars.sh
